@@ -211,7 +211,7 @@ jobs:
         with:
           name: magiskboot
           if-no-files-found: error
-          path: ${{ github.workspace }}/build/magiskboot_*
+          path: ${{ github.workspace }}/magiskboot_*-src/magiskboot*
 
       # Fail fast
       - name: Cancel other jobs
