@@ -206,16 +206,16 @@ jobs:
 
           file build/magiskboot*
           readelf -d build/magiskboot* || true
-      - name: Check
-        run: |
-          pwd
-          ls --file-type
+          rm -rf $GITHUB_WORKSPACE/${{ env.progname }}-out && mkdir -p $GITHUB_WORKSPACE/${{ env.progname }}-out
+          cp -afv build/magiskboot* $GITHUB_WORKSPACE/${{ env.progname }}-out
+
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: magiskboot
           if-no-files-found: error
-          path: ${{ github.workspace }}/magiskboot_*-src/build/magiskboot*
+          name: ${{ env.progname }}-${{ needs.vars.outputs.short_sha }}-${{ needs.vars.outputs.build_type }}-${{ env.vcpkg_triplet }}
+          path: ${{ github.workspace }}/${{ env.progname }}-out/magiskboot*
 
       # Fail fast
       - name: Cancel other jobs
